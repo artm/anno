@@ -1,0 +1,12 @@
+version: '2'
+services:
+  couchbase:
+    image: couchbase/server:community-4.5.0
+    hostname: anno_db
+    volumes:
+      - data:/opt/couchbase/var
+    ports:
+      - 8091-8094:8091-8094
+      - 11210:11210
+volumes:
+  data:
