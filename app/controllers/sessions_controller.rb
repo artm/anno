@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  protect_from_forgery :except => [:callback]
+
   def create
     account = Account.find_or_create_from_auth_hash(auth_hash)
     session[:account_id] = account.id
