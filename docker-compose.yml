@@ -8,5 +8,16 @@ services:
     ports:
       - 8091-8094:8091-8094
       - 11210:11210
+  backend:
+    build:
+      context: .
+      dockerfile: config/docker/backend.Dockerfile
+    volumes:
+      - bundle:/bundle
+    links:
+      - couchbase
+    ports:
+      - 3000:3000
 volumes:
   data:
+  bundle:
