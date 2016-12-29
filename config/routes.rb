@@ -1,3 +1,4 @@
 Rails.application.routes.draw do
-  get "/oauth2callback" => "sessions#create"
+  match "/auth/:provider/callback" => "sessions#create", via: %i(post)
+  root to: redirect("/auth/developer")
 end
