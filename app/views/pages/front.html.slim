@@ -1,8 +1,9 @@
 h1 Anno
 
-p Welcome to Anno
-
-- unless signed_in?
+- if signed_in?
+  p
+    | Welcome to Anno, #{current_account.name} &lt;#{current_account.email}&gt;
+- else
   p Please log in
   ul
     li: a href="/auth/developer"
