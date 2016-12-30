@@ -2,24 +2,26 @@ version: '2'
 services:
   couchbase:
     image: couchbase/server:community-4.5.0
-    hostname: anno_db
+    hostname: db.anno
     volumes:
       - data:/opt/couchbase/var
     ports:
       - 8091-8094:8091-8094
-      - 11210:11210
+      - 11210-11220:11210-11220
   backend:
     build:
       context: .
       dockerfile: config/docker/backend.Dockerfile
-    hostname: anno_backend
+    hostname: app.anno
     volumes:
       - bundle:/bundle
       - .:/app
-    links:
-      - couchbase
     ports:
       - 3000:3000
+    environment:
+      - LCB_OPTIONS=detailed_errcodes=1
+    links:
+      - couchbase:db.anno
 volumes:
   data:
   bundle:
