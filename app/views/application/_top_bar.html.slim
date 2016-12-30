@@ -1,0 +1,11 @@
+.top-bar#top-menu
+  .top-bar-left
+    ul.vertical.medium-horizontal.menu
+      li.menu-text.show-for-medium Anno
+  .top-bar-right
+    ul.dropdown.menu[data-dropdown-menu]
+      li
+        a = current_account.email
+        ul.menu.vertical
+          li: a Profile
+          li: a Logout
