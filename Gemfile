@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
+  repo_name = '#{repo_name}/#{repo_name}' unless repo_name.include?('/')
+  'https://github.com/#{repo_name}.git'
 end
 
 
@@ -12,6 +12,9 @@ gem 'rails', '~> 5.0.1'
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# frontend styling
+gem 'foundation-rails'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # slim views
@@ -28,9 +31,9 @@ gem 'couchbase'
 # couchbase based models
 gem 'couchbase-model'
 # authentication via google
-gem "omniauth-google-oauth2"
+gem 'omniauth-google-oauth2'
 # what it sounds like
-gem "simple_form"
+gem 'simple_form'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
