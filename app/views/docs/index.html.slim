@@ -1,4 +1,5 @@
 h2 Docs
 
 ul
+  li = link_to "Add new", new_doc_path
   = render collection: @docs, partial: "doc_entry", as: :doc

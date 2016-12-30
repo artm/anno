@@ -6,26 +6,11 @@
 // http://www.couchbase.com/docs/couchbase-manual-2.0/couchbase-views-writing-map.html
 
 function(doc, meta) {
-  emit(meta.id, null);
+  if (doc.type === "doc") {
+    emit(meta.id, doc);
+  }
 }
 
-// You can also check out following examples
-//
-// The simplest example of a map function:
-//
-//   function(doc, meta) {
-//     emit(meta.id, doc);
-//   }
-//
-// Slightly more complex example of a function that defines a view on values
-// computed from customer documents:
-//
-//   function(doc, meta) {
-//     if (doc.type == "customer") {
-//       emit(meta.id, {last_name: doc.last_name, first_name: doc.first_name});
-//     }
-//   }
-//
 // To be able to filter or sort the view by some document property, you
 // would use that property for the key. For example, the following view
 // would allow you to lookup customer documents by the last_name or

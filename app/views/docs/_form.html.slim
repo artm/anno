@@ -1,0 +1,6 @@
+= simple_form_for @doc do |form|
+  = form.input :title
+  = form.input :language
+  = form.input :notes, as: :text
+  = form.input :text, as: :text
+  = form.button :submit
