@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  protect_from_forgery :except => [:callback]
+  protect_from_forgery with: :exception, except: %i[create]
 
   def create
     account = Account.find_or_create_from_auth_hash(auth_hash)
