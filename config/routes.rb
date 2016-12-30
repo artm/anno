@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  match "/auth/:provider/callback" => "sessions#create", via: %i(post)
+  post "/auth/:provider/callback" => "sessions#create"
   root to: redirect("/auth/developer")
 end
