@@ -7,4 +7,8 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
+    h1 Anno
+    - flash.each do |key, message|
+      p.flash class=key
+        = message
     = yield
