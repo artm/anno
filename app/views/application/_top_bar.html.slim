@@ -2,10 +2,11 @@
   .top-bar-left
     ul.vertical.medium-horizontal.menu
       li.menu-text.show-for-medium Anno
+      li = link_to "Docs", docs_path
   .top-bar-right
     ul.dropdown.menu[data-dropdown-menu]
       li
-        a = current_account.email
+        a href="#" = current_account.email
         ul.menu.vertical
-          li: a Profile
-          li: a Logout
+          li: a href="#" Profile
+          li: a href="#" Logout

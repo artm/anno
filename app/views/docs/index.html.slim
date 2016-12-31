@@ -1,5 +1,7 @@
-h2 Docs
+.row
+  .small-12.large-8.large-centered.columns
+    h2 Docs
 
-ul
-  li = link_to "Add new", new_doc_path
-  = render collection: @docs, partial: "doc_entry", as: :doc
+    ul
+      li = link_to "Add new", new_doc_path
+      = render collection: @docs, partial: "doc_entry", as: :doc
