@@ -5,4 +5,6 @@ class Doc < Couchbase::Model
   attribute :text
 
   view :all
+
+  validates_presence_of :title, :language, :text
 end
