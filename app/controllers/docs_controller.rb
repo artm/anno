@@ -6,4 +6,13 @@ class DocsController < ApplicationController
   def new
     @doc = Doc.new
   end
+
+  def edit
+    @doc = Doc.find(params[:id])
+  end
+
+  def create
+    doc = Anno::CreateDoc.from(params[:doc].to_hash)
+    redirect_to edit_doc_url(doc)
+  end
 end
