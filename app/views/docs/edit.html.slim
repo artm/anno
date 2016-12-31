@@ -1,3 +1,4 @@
 .row.column
   = render partial: "form"
-
+.row.column
+  #text data={text: @doc.text.to_json}
