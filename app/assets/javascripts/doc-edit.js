@@ -1,20 +1,38 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
+
+class Word extends React.Component {
+  render() {
+    return <span>{this.props.word.pre}{this.props.word.word}{this.props.word.post} </span>;
+  }
+}
+
+class Sentence extends React.Component {
+  render() {
+    const words = this.props.words.map((word,i) => <Word word={word} key={i} />);
+    return <span>{words}</span>;
+  }
+}
 
 class Paragraph extends React.Component {
   render() {
-    return <p>paragraph be here</p>;
+    const sentences = this.props.sentences.map((sentence,i) => <Sentence words={sentence} key={i} />);
+    return <p>{sentences}</p>;
+  }
+}
+
+class AnnoText extends React.Component {
+  render() {
+    const paragraphs = this.props.paragraphs.map((paragraph,i) => <Paragraph sentences={paragraph} key={i} />);
+    return <div>{paragraphs}</div>;
   }
 }
 
 $(function() {
   $("#text").each(function() {
     var text = $(this).data("text");
-    console.log(text);
-    for(var i=0; i<text.length; i++) {
-      ReactDOM.render(
-        <Paragraph sentences={text[i]} />,
-          document.getElementById('text'));
-    }
+    ReactDOM.render(
+      <AnnoText paragraphs={text} />,
+      document.getElementById("text"));
   });
 })
