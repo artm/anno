@@ -2,17 +2,20 @@ module Anno
   class CreateDoc
     class << self
       def from *args
-        new(*args).doc
+        new(*args).create_doc
       end
     end
 
-    attr_reader :doc
+    attr_reader :options
 
     def initialize options
-      options = options.with_indifferent_access.merge(
+      @options = options.with_indifferent_access.merge(
         text: parse(options[:text])
       )
-      @doc = Doc.create!(options)
+    end
+
+    def create_doc
+      Doc.create!(options)
     end
 
     private
