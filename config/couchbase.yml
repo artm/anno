@@ -13,6 +13,7 @@ development:
 test:
   <<: *common
   bucket: anno_test
+  password: d3v3l0
 
 # set these environment variables on your production server
 production:
