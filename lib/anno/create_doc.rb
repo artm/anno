@@ -49,7 +49,7 @@ module Anno
     end
 
     def word_regex
-      /(\p{P}+)? ((?:\p{L}|\p{M})+)(\p{P}+)?/
+      /(\p{P}+)?((?:\p{L}|\p{M}|-)+)(\p{P}+)?/
     end
   end
 end
