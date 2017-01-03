@@ -9,14 +9,14 @@ class Word extends React.Component {
 
 class Sentence extends React.Component {
   render() {
-    const words = this.props.words.map((word,i) => <Word word={word} key={i} />);
+    const words = this.props.contents.words.map((word,i) => <Word word={word} key={i} />);
     return <span>{words}</span>;
   }
 }
 
 class Paragraph extends React.Component {
   render() {
-    const sentences = this.props.sentences.map((sentence,i) => <Sentence words={sentence} key={i} />);
+    const sentences = this.props.sentences.map((sentence,i) => <Sentence contents={sentence} key={i} />);
     return <p>{sentences}</p>;
   }
 }
