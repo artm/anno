@@ -23,4 +23,12 @@ class CreateDocTest < ActiveSupport::TestCase
       assert_equal paragraph.size, expected_size
     end
   end
+
+  test "sentences are objects" do
+    sentences = @paragraphs.first
+    sentences.each do |sentence|
+      assert_kind_of Hash, sentence
+      assert_kind_of Array, sentence[:words]
+    end
+  end
 end

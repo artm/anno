@@ -33,15 +33,19 @@ module Anno
     end
 
     def parse_sentence string
-      result = []
+      words = []
       string.scan(word_regex) { |pre,word,post|
-        result << {
+        words << {
           pre: pre,
           word: word,
           post: post
         }
       }
-      result
+      {
+        words: words,
+        notes: [],
+        translations: []
+      }
     end
 
     def word_regex
