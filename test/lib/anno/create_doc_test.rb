@@ -28,7 +28,23 @@ class CreateDocTest < ActiveSupport::TestCase
     sentences = @paragraphs.first
     sentences.each do |sentence|
       assert_kind_of Hash, sentence
-      assert_kind_of Array, sentence[:words]
     end
+  end
+
+  test "splits sentences into words" do
+    sentences = @paragraphs.first
+    expected_sizes = [17, 26, 19, 18]
+    sentences.zip(expected_sizes).each do |sentence, expected_size|
+      words = sentence[:words]
+      assert_kind_of Array, words
+      assert_equal expected_size, words.size
+    end
+  end
+
+  test "words with combining diacritics" do
+    sentences = @paragraphs.first
+    sentence = sentences.first
+    words = sentence[:words]
+    assert_equal "Íslendingabók", words.first[:word]
   end
 end
