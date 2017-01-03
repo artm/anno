@@ -41,10 +41,19 @@ class CreateDocTest < ActiveSupport::TestCase
     end
   end
 
-  test "words with combining diacritics" do
+  test "word with combining diacritics" do
     sentences = @paragraphs.first
     sentence = sentences.first
     words = sentence[:words]
     assert_equal "Íslendingabók", words.first[:word]
+  end
+
+  test "word with post-punctuation" do
+    sentences = @paragraphs.first
+    sentence = sentences.first
+    words = sentence[:words]
+    word = words[8]
+    assert_equal word[:word], "Katli"
+    assert_equal word[:post], ","
   end
 end
