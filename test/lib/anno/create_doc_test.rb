@@ -41,19 +41,32 @@ class CreateDocTest < ActiveSupport::TestCase
     end
   end
 
+  def assert_word pre, word, post, actual
+    expected = { pre: pre, word: word, post: post }
+    actual = actual.symbolize_keys
+    assert_equal expected, actual
+  end
+
   test "word with combining diacritics" do
     sentences = @paragraphs.first
     sentence = sentences.first
     words = sentence[:words]
-    assert_equal "Íslendingabók", words.first[:word]
+    assert_word nil, "Íslendingabók", nil, words[0]
   end
 
   test "word with post-punctuation" do
     sentences = @paragraphs.first
     sentence = sentences.first
     words = sentence[:words]
-    word = words[8]
-    assert_equal word[:word], "Katli"
-    assert_equal word[:post], ","
+    assert_word nil, "Katli", ",", words[8]
+  end
+
+  test "standalone punctuation" do
+    sentences = @paragraphs[2]
+    sentence = sentences.first
+    words = sentence[:words]
+    assert_word "--", nil, nil, words[16]
+    assert_word ";", nil, nil, words[34]
+    assert_equal 65, words.size
   end
 end

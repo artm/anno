@@ -36,9 +36,9 @@ module Anno
       words = []
       string.scan(word_regex) { |pre,word,post|
         words << {
-          pre: pre,
+          pre: pre.presence,
           word: word,
-          post: post
+          post: post.presence
         }
       }
       {
@@ -49,7 +49,7 @@ module Anno
     end
 
     def word_regex
-      /(\p{P}+)?((?:\p{L}|\p{M}|-)+)(\p{P}+)?/
+      /(\p{P}+)|\1?((?:\p{L}|\p{M}|-)+)(\p{P}*)/
     end
   end
 end
