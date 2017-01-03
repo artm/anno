@@ -9,7 +9,8 @@ module Anno
     attr_reader :options
 
     def initialize options
-      @options = options.with_indifferent_access.merge(
+      options = options.with_indifferent_access
+      @options = options.merge(
         text: parse(options[:text])
       )
     end
@@ -21,7 +22,7 @@ module Anno
     private
 
     def parse string
-      string.split(/\n{2,}/).map(&method(:parse_paragraph))
+      string.split(/(\w*[\r\n]\w*){2,}/).map(&method(:parse_paragraph))
     end
 
     def parse_paragraph string
