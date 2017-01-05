@@ -22,7 +22,7 @@ module Anno
     private
 
     def parse string
-      string.split(/(\w*[\r\n]\w*){2,}/).map(&method(:parse_paragraph))
+      string.split(/(?:\n[ \r\t]*){2,}/).map(&method(:parse_paragraph))
     end
 
     def parse_paragraph string
