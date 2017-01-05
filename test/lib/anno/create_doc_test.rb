@@ -13,14 +13,14 @@ class CreateDocTest < ActiveSupport::TestCase
 
   test "splits text into paragraphs" do
     assert_kind_of Array, @paragraphs
-    assert_equal @paragraphs.size, 6
+    assert_equal 6, @paragraphs.size
   end
 
   test "splits paragraphs into sentences" do
     expected_sizes = [4, 1, 2, 4, 2, 6]
     @paragraphs.zip(expected_sizes).each do |paragraph, expected_size|
       assert_kind_of Array, paragraph
-      assert_equal paragraph.size, expected_size
+      assert_equal expected_size, paragraph.size
     end
   end
 
@@ -65,8 +65,8 @@ class CreateDocTest < ActiveSupport::TestCase
     sentences = @paragraphs[2]
     sentence = sentences.first
     words = sentence[:words]
+    assert_equal 65, words.size
     assert_word "--", nil, nil, words[16]
     assert_word ";", nil, nil, words[34]
-    assert_equal 65, words.size
   end
 end
