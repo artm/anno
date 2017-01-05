@@ -3,14 +3,14 @@ import ReactDOM from "react-dom";
 
 class Word extends React.Component {
   render() {
-    return <span>{this.props.word.pre}{this.props.word.word}{this.props.word.post} </span>;
+    return <span>{this.props.word.pre}<span className="word">{this.props.word.word}</span>{this.props.word.post} </span>;
   }
 }
 
 class Sentence extends React.Component {
   render() {
     const words = this.props.contents.words.map((word,i) => <Word word={word} key={i} />);
-    return <span>{words}</span>;
+    return <span className="sentence">{words}</span>;
   }
 }
 
