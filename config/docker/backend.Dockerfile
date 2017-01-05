@@ -1,4 +1,4 @@
-FROM ruby:2.2.5
+FROM ruby:2.2.6
 
 ENV COUCHBASE_DEB couchbase-release-1.0-2-amd64.deb
 
@@ -9,7 +9,7 @@ RUN wget -q "http://packages.couchbase.com/releases/couchbase-release/$COUCHBASE
   && apt-get update -qq \
   && apt-get install -y --no-install-recommends \
       build-essential \
-      nodejs \
+      nodejs nodejs-legacy \
       libcouchbase-dev libcouchbase2-bin \
       libxml2-dev libxslt1-dev \
   && rm -rf /var/lib/apt/lists/*
