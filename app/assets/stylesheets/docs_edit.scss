@@ -21,6 +21,9 @@
     .dict {
       background: #ffff99;
       box-shadow: 4px 4px 4px #eee;
+      input {
+        background: #ffff99;
+      }
     }
     .double-row {
       font-size: 133%;
@@ -28,6 +31,17 @@
       &:first-child {
         text-align: right;
       }
+      input {
+        font-size: inherit;
+      }
     }
+  }
+
+  input {
+    margin: 0;
+    padding: 2px;
+    height: inherit;
+    border-color: rgba(0,0,0,0);
+    box-shadow: none;
   }
 }
