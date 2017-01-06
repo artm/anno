@@ -20,7 +20,15 @@ class Word extends React.Component {
 }
 
 export default class SentenceAnnotator extends React.Component {
+  actualWords() {
+    return this.props.sentence.words.filter((w) => w.word);
+  }
+
+  wordComponents() {
+    return this.actualWords().map((w,i) => <Word key={i} word={w.word} />)
+  }
+
   render() {
-    return <div className="sentence-annotator">{this.props.sentence.words.map((w,i) => <Word key={i} word={w.word} />)}</div>
+    return <div className="sentence-annotator">{this.wordComponents()}</div>
   }
 }
