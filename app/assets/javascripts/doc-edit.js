@@ -33,6 +33,6 @@ $(function() {
     var text = $(this).data("text");
     ReactDOM.render(
       <AnnoText paragraphs={text} />,
-      document.getElementById("text"));
+      document.getElementById("clickable_text"));
   });
 })
