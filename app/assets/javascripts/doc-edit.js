@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Split from "split.js";
 
 class Word extends React.Component {
   render() {
@@ -30,6 +31,15 @@ class AnnoText extends React.Component {
 
 $(function() {
   $("#text").each(function() {
+    $(window).on("resize", function() {
+      var winHeight = $(window).height();
+      var topMenuHeight = $("#top-menu").outerHeight();
+      $("#edit_container").outerHeight(winHeight - topMenuHeight);
+    });
+
+    Split(["#text_pane", "#anno_pane"], {
+      direction: "vertical",
+    });
     var text = $(this).data("text");
     ReactDOM.render(
       <AnnoText paragraphs={text} />,

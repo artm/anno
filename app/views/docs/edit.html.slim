@@ -1,5 +1,11 @@
 #edit_container
-  #clickable_text
-  #annotations
+  #text_pane.pane
+    .row.column
+      #clickable_text
+  #anno_pane.pane
+    .row.column
+      #annotations
+        | annos be here
+
 .nothing-to-see-here
   #text data={text: @doc.text.to_json}
