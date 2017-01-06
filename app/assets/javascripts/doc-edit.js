@@ -9,9 +9,18 @@ class Word extends React.Component {
 }
 
 class Sentence extends React.Component {
+  clicked() {
+    console.log("sentence clicked");
+  }
+
   render() {
     const words = this.props.contents.words.map((word,i) => <Word word={word} key={i} />);
-    return <span className="sentence">{words}</span>;
+    return <span
+      className="sentence"
+      onClick={() => this.clicked()}
+      >
+      {words}
+    </span>;
   }
 }
 
