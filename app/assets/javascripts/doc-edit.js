@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Split from "split.js";
+import SentenceAnnotator from "sentence-annotator.js";
 
 class Word extends React.Component {
   render() {
@@ -10,7 +11,9 @@ class Word extends React.Component {
 
 class Sentence extends React.Component {
   clicked() {
-    console.log("sentence clicked");
+    ReactDOM.render(
+      <SentenceAnnotator sentence={this.props.contents} />,
+      document.getElementById("annotations"));
   }
 
   render() {
