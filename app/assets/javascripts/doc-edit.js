@@ -34,7 +34,7 @@ $(function() {
     $(window).on("resize", function() {
       var winHeight = $(window).height();
       var topMenuHeight = $("#top-menu").outerHeight();
-      $("#edit_container").outerHeight(winHeight - topMenuHeight);
+      $("#edit_container").outerHeight(winHeight - topMenuHeight - 1);
     });
 
     Split(["#text_pane", "#anno_pane"], {
