@@ -15,11 +15,19 @@
 }
 
 .sentence-annotator {
-  .dict {
-    background: yellow;
-  }
-  .double-row {
-    font-size: 133%;
-    font-weight: bold;
+  .word-annotator {
+    margin: 2px;
+
+    .dict {
+      background: #ffff99;
+      box-shadow: 4px 4px 4px #eee;
+    }
+    .double-row {
+      font-size: 133%;
+      font-weight: bold;
+      &:first-child {
+        text-align: right;
+      }
+    }
   }
 }
