@@ -4,3 +4,12 @@
     overflow-y: auto;
   }
 }
+
+.sentence {
+  &:hover {
+    background: #F0F0F0;
+  }
+  .word:hover {
+    background: #E0E0E0;
+  }
+}
