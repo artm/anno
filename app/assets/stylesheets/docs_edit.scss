@@ -12,6 +12,9 @@
   .word:hover {
     background: #E0E0E0;
   }
+  &.selected {
+    background: #ffff99;
+  }
 }
 
 .sentence-annotator {

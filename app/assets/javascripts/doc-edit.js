@@ -28,7 +28,7 @@ class DocEditor {
   }
 
   onSentenceClicked(sentenceKey) {
-    loadSentence(sentenceKey);
+    this.loadSentence(sentenceKey);
   }
 
   setupSplitUI() {
@@ -48,7 +48,7 @@ class DocEditor {
     ReactDOM.render(
       <ClickableText
         paragraphs={docText.paragraphs()}
-        onSentenceClicked={this.onSentenceClicked}
+        onSentenceClicked={(k) => this.onSentenceClicked(k)}
       />, this.clickableTextElement);
   }
 

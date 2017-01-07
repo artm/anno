@@ -17,12 +17,16 @@ class Sentence extends React.Component {
   }
 
   render() {
-    var skey = this.props.sentenceKey;
+    let className = "sentence";
+    if (this.props.selected) {
+      className = "sentence selected";
+    }
+    let skey = this.props.sentenceKey;
     const words = this.props.sentence.words.map((word,i) => {
       let wkey = skey + ":" + i;
       return <Word word={word} key={wkey} wordKey={wkey}/>
     });
-    return <span className="sentence" onClick={this.onSentenceClicked}>{words}</span>;
+    return <span className={className} onClick={this.onSentenceClicked}>{words}</span>;
   }
 }
 
@@ -46,6 +50,7 @@ class Paragraph extends React.Component {
                  key={skey}
                  sentenceKey={skey}
                  onSentenceClicked={this.onSentenceClicked}
+                 selected={skey == this.props.selectedSentence}
                />;
       });
     return <p>{sentences}</p>;
@@ -56,9 +61,11 @@ export default class ClickableText extends React.Component {
   constructor(props) {
     super(props);
     this.onSentenceClicked = this.onSentenceClicked.bind(this);
+    this.state = {selectedSentence: (props.selectedSentence||"0:0")};
   }
 
   onSentenceClicked(sentenceKey) {
+    this.setState({selectedSentence: sentenceKey});
     this.props.onSentenceClicked(sentenceKey);
   }
 
@@ -70,6 +77,7 @@ export default class ClickableText extends React.Component {
           key={i}
           paragraphKey={i}
           onSentenceClicked={this.onSentenceClicked}
+          selectedSentence={this.state.selectedSentence}
         />);
     return <div>{paragraphs}</div>;
   }
