@@ -1,15 +1,19 @@
 import React from "react";
+import AutoSave from "auto-save";
 
 class AnnoInput extends React.Component {
   constructor(props) {
     super(props);
-    this.anno = props.anno;
+    this.anno = props.word.anno;
     this.state = {value: this.anno[this.annoKey()] || ""};
     this.handleChange = this.handleChange.bind(this);
   }
   handleChange(event) {
     this.setState({value: event.target.value});
     this.anno[this.annoKey()] = event.target.value;
+    let update = {anno: {}};
+    update["anno"][this.annoKey()] = event.target.value;
+    AutoSave.updateWord(this.props.wordKey, update);
   }
   render() {
     return <input
@@ -64,21 +68,22 @@ class Word extends React.Component {
   }
 
   render() {
-    var anno = this.props.word.anno;
+    var word = this.props.word;
+    var wordKey = this.props.wordKey;
 
     return <div className="word-annotator row">
       <div className="here-word double-row medium-2 columns">{this.props.word.word}</div>
       <div className="medium-8 columns">
         <div className="row">
-          <div className="part-of-speech medium-3 columns"><PartOfSpeech anno={anno}/></div>
-          <div className="dictionary-form dict medium-4 columns"><DictionaryForm anno={anno}/></div>
-          <div className="here-form medium-5 columns"><HereForm anno={anno}/></div>
+          <div className="part-of-speech medium-3 columns"><PartOfSpeech word={word} wordKey={wordKey}/></div>
+          <div className="dictionary-form dict medium-4 columns"><DictionaryForm word={word} wordKey={wordKey}/></div>
+          <div className="here-form medium-5 columns"><HereForm word={word} wordKey={wordKey}/></div>
         </div>
         <div className="row">
           <div className="dictionary-meanings dict medium-12 columns">dictionary meaning</div>
         </div>
       </div>
-      <div className="here-meaning double-row medium-2 columns"><HereMeaning anno={anno}/></div>
+      <div className="here-meaning double-row medium-2 columns"><HereMeaning word={word} wordKey={wordKey}/></div>
     </div>;
   }
 }
