@@ -72,18 +72,26 @@ class Word extends React.Component {
     var wordKey = this.props.wordKey;
 
     return <div className="word-annotator row">
-      <div className="here-word double-row medium-2 columns">{this.props.word.word}</div>
-      <div className="medium-8 columns">
+      <div className="here-word double-row medium-3 columns">{this.props.word.word}</div>
+      <div className="medium-6 columns">
         <div className="row">
-          <div className="part-of-speech medium-3 columns"><PartOfSpeech word={word} wordKey={wordKey}/></div>
-          <div className="dictionary-form dict medium-4 columns"><DictionaryForm word={word} wordKey={wordKey}/></div>
-          <div className="here-form medium-5 columns"><HereForm word={word} wordKey={wordKey}/></div>
+          <div className="part-of-speech medium-3 columns">
+            <PartOfSpeech word={word} wordKey={wordKey}/>
+          </div>
+          <div className="dictionary-form dict medium-4 columns">
+            <DictionaryForm word={word} wordKey={wordKey}/>
+          </div>
+          <div className="here-form medium-5 columns">
+            <HereForm word={word} wordKey={wordKey}/>
+          </div>
         </div>
         <div className="row">
           <div className="dictionary-meanings dict medium-12 columns">dictionary meaning</div>
         </div>
       </div>
-      <div className="here-meaning double-row medium-2 columns"><HereMeaning word={word} wordKey={wordKey}/></div>
+      <div className="here-meaning double-row medium-3 columns">
+        <HereMeaning word={word} wordKey={wordKey}/>
+      </div>
     </div>;
   }
 }
