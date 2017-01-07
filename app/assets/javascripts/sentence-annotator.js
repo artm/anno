@@ -86,7 +86,7 @@ class Word extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="dictionary-meanings dict medium-12 columns">dictionary meaning</div>
+          <div className="dictionary-meanings dict medium-12 columns">...</div>
         </div>
       </div>
       <div className="here-meaning double-row medium-3 columns">
