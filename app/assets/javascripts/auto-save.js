@@ -1,25 +1,18 @@
-export default class AutoSave {
+let url = null;
+
+class AutoSave {
   constructor() {
     this.delay = 1000;
-    this.url = $("#anno_form").attr("action");
     this.initDiff();
   }
 
-  static singleton() {
-    if (!this.instance) {
-      this.instance = new AutoSave();
-    }
-    return this.instance;
-  }
-
-  static updateWord(wordKey, update) {
-    this.singleton().updateWord(wordKey, update);
+  get url() {
+    if (!url) { url = $("#anno_form").attr("action"); }
+    return url;
   }
 
   initDiff() {
-    this.diff = {
-      words: {}
-    };
+    this.diff = { words: {} };
   }
 
   updateWord(wordKey, update) {
@@ -48,3 +41,5 @@ export default class AutoSave {
     this.initDiff();
   }
 }
+
+export let autoSave = new AutoSave();

@@ -1,5 +1,5 @@
 import React from "react";
-import AutoSave from "auto-save";
+import { autoSave } from "auto-save";
 
 class AnnoInput extends React.Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class AnnoInput extends React.Component {
     this.anno[this.annoKey()] = event.target.value;
     let update = {anno: {}};
     update["anno"][this.annoKey()] = event.target.value;
-    AutoSave.updateWord(this.props.wordKey, update);
+    autoSave.updateWord(this.props.wordKey, update);
   }
   render() {
     return <input
