@@ -83,6 +83,7 @@ class DocEditor {
   constructor() {
     this.setupSplitUI();
     this.setupClicableText();
+    this.setupSentenceAnnotator();
     this.onSentenceClicked = this.onSentenceClicked.bind(this);
     this.loadSentence("0:0");
   }
@@ -97,8 +98,7 @@ class DocEditor {
       <SentenceAnnotator
         sentence={sentence}
         sentenceKey={sentenceKey}
-      />,
-      $("#annotations").get(0));
+      />, this.annotatorElement);
   }
 
   onSentenceClicked(sentenceKey) {
@@ -118,12 +118,16 @@ class DocEditor {
   }
 
   setupClicableText() {
+    this.clickableTextElement = $("#clickable_text").get(0);
     ReactDOM.render(
       <AnnoText
         paragraphs={docText.paragraphs()}
         onSentenceClicked={this.onSentenceClicked}
-      />,
-      $("#clickable_text").get(0));
+      />, this.clickableTextElement);
+  }
+
+  setupSentenceAnnotator() {
+    this.annotatorElement = $("#annotations").get(0);
   }
 }
 
