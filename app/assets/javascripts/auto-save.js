@@ -1,7 +1,7 @@
 export default class AutoSave {
   constructor() {
-    console.log("new AutoSave");
-    this.delay = 5000;
+    this.delay = 1000;
+    this.url = $("#anno_form").attr("action");
     this.initDiff();
   }
 
@@ -41,7 +41,10 @@ export default class AutoSave {
   }
 
   save() {
-    console.log("save", this.diff);
+    $.ajax(this.url, {
+      data: { diff: this.diff },
+      method: "PATCH"
+    });
     this.initDiff();
   }
 }

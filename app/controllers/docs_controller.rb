@@ -18,8 +18,13 @@ class DocsController < ApplicationController
 
   def update
     doc = Doc.find(params[:id])
-    doc.update(doc_update_params)
-    redirect_to :edit_doc
+    if params[:doc].present?
+      doc.update(doc_update_params)
+      redirect_to :edit_doc
+    elsif params[:diff].present?
+      Anno::PatchDoc.call(doc, params[:diff].to_hash)
+      render json: {status: "ok"}
+    end
   end
 
   private
