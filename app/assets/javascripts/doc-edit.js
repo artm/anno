@@ -12,12 +12,13 @@ class Word extends React.Component {
 class Sentence extends React.Component {
   clicked() {
     ReactDOM.render(
-      <SentenceAnnotator sentence={this.props.contents} />,
+      <SentenceAnnotator sentence={this.props.contents} sentenceKey={this.props.sentenceKey} />,
       document.getElementById("annotations"));
   }
 
   render() {
-    const words = this.props.contents.words.map((word,i) => <Word word={word} key={i} />);
+    var skey = this.props.sentenceKey;
+    const words = this.props.contents.words.map((word,i) => <Word word={word} key={skey + ":" + i} wordKey={skey + ":" + i} />);
     return <span
       className="sentence"
       onClick={() => this.clicked()}
@@ -29,14 +30,15 @@ class Sentence extends React.Component {
 
 class Paragraph extends React.Component {
   render() {
-    const sentences = this.props.sentences.map((sentence,i) => <Sentence contents={sentence} key={i} />);
+    var pkey=this.props.paragraphKey;
+    const sentences = this.props.sentences.map((sentence,i) => <Sentence contents={sentence} key={pkey + ":" + i} sentenceKey={pkey + ":" + i} />);
     return <p>{sentences}</p>;
   }
 }
 
 class AnnoText extends React.Component {
   render() {
-    const paragraphs = this.props.paragraphs.map((paragraph,i) => <Paragraph sentences={paragraph} key={i} />);
+    const paragraphs = this.props.paragraphs.map((paragraph,i) => <Paragraph sentences={paragraph} key={i} paragraphKey={i} />);
     return <div>{paragraphs}</div>;
   }
 }

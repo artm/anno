@@ -64,7 +64,10 @@ export default class SentenceAnnotator extends React.Component {
   }
 
   wordComponents() {
-    return this.actualWords().map((w,i) => <Word key={w.word + i} word={w} />)
+    return this.actualWords().map((w,i) => {
+      var key=this.props.sentenceKey + ":" + i;
+      return <Word key={key} wordKey={key} word={w}/>
+    });
   }
 
   render() {
