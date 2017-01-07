@@ -84,13 +84,14 @@ class DocEditor {
     this.setupSplitUI();
     this.setupClicableText();
     this.onSentenceClicked = this.onSentenceClicked.bind(this);
+    this.loadSentence("0:0");
   }
 
   static setup() {
     $("#edit_container").each(() => new DocEditor());
   }
 
-  onSentenceClicked(sentenceKey) {
+  loadSentence(sentenceKey) {
     let sentence = docText.sentence(sentenceKey);
     ReactDOM.render(
       <SentenceAnnotator
@@ -98,6 +99,10 @@ class DocEditor {
         sentenceKey={sentenceKey}
       />,
       $("#annotations").get(0));
+  }
+
+  onSentenceClicked(sentenceKey) {
+    loadSentence(sentenceKey);
   }
 
   setupSplitUI() {
