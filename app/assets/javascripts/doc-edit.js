@@ -11,35 +11,70 @@ class Word extends React.Component {
 }
 
 class Sentence extends React.Component {
-  clicked() {
-    ReactDOM.render(
-      <SentenceAnnotator sentence={this.props.sentence} sentenceKey={this.props.sentenceKey} />,
-      $("#annotations").get(0));
+  constructor(props) {
+    super(props);
+    this.onSentenceClicked = this.onSentenceClicked.bind(this);
+  }
+
+  onSentenceClicked() {
+    this.props.onSentenceClicked(this.props.sentenceKey);
   }
 
   render() {
     var skey = this.props.sentenceKey;
-    const words = this.props.sentence.words.map((word,i) => <Word word={word} key={skey + ":" + i} wordKey={skey + ":" + i} />);
-    return <span
-      className="sentence"
-      onClick={() => this.clicked()}
-      >
-      {words}
-    </span>;
+    const words = this.props.sentence.words.map((word,i) => {
+      let wkey = skey + ":" + i;
+      return <Word word={word} key={wkey} wordKey={wkey}/>
+    });
+    return <span className="sentence" onClick={this.onSentenceClicked}>{words}</span>;
   }
 }
 
 class Paragraph extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSentenceClicked = this.onSentenceClicked.bind(this);
+  }
+
+  onSentenceClicked(sentenceKey) {
+    this.props.onSentenceClicked(sentenceKey);
+  }
+
   render() {
     var pkey=this.props.paragraphKey;
-    const sentences = this.props.sentences.map((sentence,i) => <Sentence sentence={sentence} key={pkey + ":" + i} sentenceKey={pkey + ":" + i} />);
+    const sentences = this.props.sentences.map(
+      (sentence,i) => {
+        let skey = pkey + ":" + i;
+        return <Sentence
+                 sentence={sentence}
+                 key={skey}
+                 sentenceKey={skey}
+                 onSentenceClicked={this.onSentenceClicked}
+               />;
+      });
     return <p>{sentences}</p>;
   }
 }
 
 class AnnoText extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onSentenceClicked = this.onSentenceClicked.bind(this);
+  }
+
+  onSentenceClicked(sentenceKey) {
+    this.props.onSentenceClicked(sentenceKey);
+  }
+
   render() {
-    const paragraphs = this.props.paragraphs.map((paragraph,i) => <Paragraph sentences={paragraph} key={i} paragraphKey={i} />);
+    const paragraphs = this.props.paragraphs.map(
+      (paragraph,i) =>
+        <Paragraph
+          sentences={paragraph}
+          key={i}
+          paragraphKey={i}
+          onSentenceClicked={this.onSentenceClicked}
+        />);
     return <div>{paragraphs}</div>;
   }
 }
@@ -48,10 +83,21 @@ class DocEditor {
   constructor() {
     this.setupSplitUI();
     this.setupClicableText();
+    this.onSentenceClicked = this.onSentenceClicked.bind(this);
   }
 
   static setup() {
     $("#edit_container").each(() => new DocEditor());
+  }
+
+  onSentenceClicked(sentenceKey) {
+    let sentence = docText.sentence(sentenceKey);
+    ReactDOM.render(
+      <SentenceAnnotator
+        sentence={sentence}
+        sentenceKey={sentenceKey}
+      />,
+      $("#annotations").get(0));
   }
 
   setupSplitUI() {
@@ -68,7 +114,10 @@ class DocEditor {
 
   setupClicableText() {
     ReactDOM.render(
-      <AnnoText paragraphs={docText.paragraphs()}/>,
+      <AnnoText
+        paragraphs={docText.paragraphs()}
+        onSentenceClicked={this.onSentenceClicked}
+      />,
       $("#clickable_text").get(0));
   }
 }
