@@ -1,8 +1,18 @@
 import React from "react";
 
 class PartOfSpeech extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {value: props.anno.part_of_speech || ""};
+    this.anno = props.anno;
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({value: event.target.value});
+    this.anno.part_of_speech = event.target.value;
+  }
   render() {
-    return <input type="text" placeholder="part of speech" />;
+    return <input type="text" placeholder="part of speech" value={this.state.value} onChange={this.handleChange}/>;
   }
 }
 
@@ -25,12 +35,17 @@ class HereMeaning extends React.Component {
 }
 
 class Word extends React.Component {
+  constructor(props) {
+    props.word.anno = props.word.anno || {};
+    super(props);
+  }
+
   render() {
     return <div className="word-annotator row">
-      <div className="here-word double-row medium-2 columns">{this.props.word}</div>
+      <div className="here-word double-row medium-2 columns">{this.props.word.word}</div>
       <div className="medium-8 columns">
         <div className="row">
-          <div className="part-of-speech medium-3 columns"><PartOfSpeech /></div>
+          <div className="part-of-speech medium-3 columns"><PartOfSpeech anno={this.props.word.anno}/></div>
           <div className="dictionary-form dict medium-4 columns"><DictionaryForm /></div>
           <div className="here-form medium-5 columns"><HereForm/></div>
         </div>
@@ -49,7 +64,7 @@ export default class SentenceAnnotator extends React.Component {
   }
 
   wordComponents() {
-    return this.actualWords().map((w,i) => <Word key={i} word={w.word} />)
+    return this.actualWords().map((w,i) => <Word key={w.word + i} word={w} />)
   }
 
   render() {
