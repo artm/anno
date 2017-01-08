@@ -11,7 +11,7 @@ class DocEditor {
     this.setupClicableText();
     this.setupSentenceAnnotator();
     this.onSentenceClicked = this.onSentenceClicked.bind(this);
-    this.loadSentence("0:0");
+    this.loadSentence(this.selectedSentence);
   }
 
   static setup() {
@@ -19,6 +19,7 @@ class DocEditor {
   }
 
   loadSentence(sentenceKey) {
+    this.selectedSentence = sentenceKey;
     let sentence = docText.sentence(sentenceKey);
     ReactDOM.render(
       <SentenceAnnotator
@@ -29,6 +30,27 @@ class DocEditor {
 
   onSentenceClicked(sentenceKey) {
     this.loadSentence(sentenceKey);
+  }
+
+  saveSetting(newSetting) {
+    let key = location.path;
+    let settings = JSON.parse(localStorage[key] || "{}");
+    $.extend(settings,newSetting);
+    localStorage[key] = JSON.stringify(settings);
+  }
+
+  getSetting(name, _default = undefined) {
+    let key = location.path;
+    let settings = JSON.parse(localStorage[key] || "{}");
+    return settings[name] || _default;
+  }
+
+  get selectedSentence() {
+    return this.getSetting("selectedSentence", "0:0");
+  }
+
+  set selectedSentence(newValue) {
+    this.saveSetting({selectedSentence: newValue});
   }
 
   setupSplitUI() {
@@ -49,6 +71,7 @@ class DocEditor {
       <ClickableText
         paragraphs={docText.paragraphs()}
         onSentenceClicked={(k) => this.onSentenceClicked(k)}
+        selectedSentence={this.selectedSentence}
       />, this.clickableTextElement);
   }
 
