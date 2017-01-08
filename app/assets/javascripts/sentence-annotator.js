@@ -1,27 +1,43 @@
 import React from "react";
 import { autoSave } from "auto-save";
+import Autocomplete from  "react-autocomplete";
 
 class AnnoInput extends React.Component {
   constructor(props) {
     super(props);
     this.anno = props.word.anno;
     this.state = {value: this.anno[this.annoKey()] || ""};
-    this.handleChange = this.handleChange.bind(this);
+    this.setValue = this.setValue.bind(this);
   }
-  handleChange(event) {
-    this.setState({value: event.target.value});
-    this.anno[this.annoKey()] = event.target.value;
+  setValue(value) {
+    this.setState({value: value});
+    this.anno[this.annoKey()] = value;
     let update = {anno: {}};
-    update["anno"][this.annoKey()] = event.target.value;
+    update["anno"][this.annoKey()] = value;
     autoSave.updateWord(this.props.wordKey, update);
   }
   render() {
-    return <input
-      type="text"
-      placeholder={this.placeholder()}
-      value={this.state.value}
-      onChange={this.handleChange}
-    />;
+    return (
+        <Autocomplete
+          value={this.state.value}
+          inputProps={{placeholder: this.placeholder(), type: "text"}}
+          items={this.suggestions()}
+          getItemValue={(item) => item}
+          //shouldItemRender={}
+          //sortItems={}
+          onChange={(event, value) => this.setValue(value)}
+          onSelect={value => this.setValue(value)}
+          renderItem={(item, isHighlighted) => (
+            <div
+              style={isHighlighted ? {background: "#ffff99"} : {}}
+              key={item}
+            >{item}</div>
+          )}
+        />
+    );
+  }
+  suggestions() {
+    return undefined;
   }
 }
 
@@ -31,6 +47,13 @@ class PartOfSpeech extends AnnoInput {
   }
   annoKey() {
     return "part_of_speech";
+  }
+  suggestions() {
+    return [
+      "noun",
+      "verb",
+      "adjective"
+    ];
   }
 }
 
