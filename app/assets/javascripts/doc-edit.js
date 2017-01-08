@@ -60,8 +60,12 @@ class DocEditor {
       $("#edit_container").outerHeight(winHeight - topMenuHeight - 1);
     });
 
-    Split(["#text_pane", "#anno_pane"], {
+    let split = Split(["#text_pane", "#anno_pane"], {
       direction: "vertical",
+      sizes: this.getSetting("splitSizes", [100,100]),
+      onDragEnd: () => {
+        this.saveSetting({splitSizes: split.getSizes()});
+      }
     });
   }
 
