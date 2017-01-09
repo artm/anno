@@ -24,7 +24,7 @@ class AnnoInput extends React.Component {
           items={this.suggestions()}
           getItemValue={(item) => item}
           //shouldItemRender={}
-          //sortItems={}
+          sortItems={this.compareSuggestions}
           onChange={(event, value) => this.setValue(value)}
           onSelect={value => this.setValue(value)}
           renderItem={(item, isHighlighted) => (
@@ -38,6 +38,15 @@ class AnnoInput extends React.Component {
   }
   suggestions() {
     return undefined;
+  }
+  compareSuggestions(a, b, current) {
+    if (a < b) {
+      return -1;
+    } else if (a > b) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }
 
