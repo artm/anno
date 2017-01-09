@@ -23,7 +23,7 @@ class AnnoInput extends React.Component {
           inputProps={{placeholder: this.placeholder(), type: "text"}}
           items={this.suggestions()}
           getItemValue={(item) => item}
-          //shouldItemRender={}
+          shouldItemRender={this.filterSuggestions}
           sortItems={this.compareSuggestions}
           onChange={(event, value) => this.setValue(value)}
           onSelect={value => this.setValue(value)}
@@ -37,9 +37,9 @@ class AnnoInput extends React.Component {
     );
   }
   suggestions() {
-    return undefined;
+    return [];
   }
-  compareSuggestions(a, b, current) {
+  compareSuggestions(a, b, currentInput) {
     if (a < b) {
       return -1;
     } else if (a > b) {
@@ -47,6 +47,10 @@ class AnnoInput extends React.Component {
     } else {
       return 0;
     }
+  }
+  filterSuggestions(suggestion, currentInput) {
+    let words = suggestion.split(/\s+/);
+    return words.find((word) => word.startsWith(currentInput));
   }
 }
 
