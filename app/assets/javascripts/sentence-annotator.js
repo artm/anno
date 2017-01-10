@@ -1,6 +1,7 @@
 import React from "react";
 import { autoSave } from "auto-save";
 import Autocomplete from  "react-autocomplete";
+import SuggestionSource from "suggestion-source";
 
 class AnnoInput extends React.Component {
   constructor(props) {
@@ -17,14 +18,15 @@ class AnnoInput extends React.Component {
     autoSave.updateWord(this.props.wordKey, update);
   }
   render() {
+    let source = this.props.suggestionSource || new SuggestionSource();
     return (
         <Autocomplete
           value={this.state.value}
           inputProps={{placeholder: this.placeholder(), type: "text"}}
-          items={this.suggestions()}
+          items={source.suggestions()}
           getItemValue={(item) => item}
-          shouldItemRender={this.filterSuggestions}
-          sortItems={this.compareSuggestions}
+          shouldItemRender={source.filterSuggestions}
+          sortItems={source.compareSuggestions}
           onChange={(event, value) => this.setValue(value)}
           onSelect={value => this.setValue(value)}
           renderItem={(item, isHighlighted) => (
@@ -36,22 +38,6 @@ class AnnoInput extends React.Component {
         />
     );
   }
-  suggestions() {
-    return [];
-  }
-  compareSuggestions(a, b, currentInput) {
-    if (a < b) {
-      return -1;
-    } else if (a > b) {
-      return 1;
-    } else {
-      return 0;
-    }
-  }
-  filterSuggestions(suggestion, currentInput) {
-    let words = suggestion.split(/\s+/);
-    return words.find((word) => word.startsWith(currentInput));
-  }
 }
 
 class PartOfSpeech extends AnnoInput {
@@ -60,13 +46,6 @@ class PartOfSpeech extends AnnoInput {
   }
   annoKey() {
     return "part_of_speech";
-  }
-  suggestions() {
-    return [
-      "noun",
-      "verb",
-      "adjective"
-    ];
   }
 }
 
