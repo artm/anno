@@ -7,7 +7,6 @@ export default class SuggestionSource {
   }
   bolster(term) {
     if (term) {
-      console.log("bolster", term);
       this.termCounts[term] = (this.termCounts[term]||0) + 1;
     }
   }
@@ -20,6 +19,8 @@ export default class SuggestionSource {
     return Object.keys(this.termCounts);
   }
   compareSuggestions(a, b, currentInput) {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
     if (a < b) {
       return -1;
     } else if (a > b) {
