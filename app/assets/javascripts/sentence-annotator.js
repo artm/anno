@@ -1,5 +1,6 @@
 import React from "react";
 import { autoSave } from "auto-save";
+import { docText } from "doc-text";
 import Autocomplete from  "react-autocomplete";
 import SuggestionSource from "suggestion-source";
 
@@ -25,7 +26,7 @@ class AnnoInput extends React.Component {
           inputProps={{placeholder: this.placeholder(), type: "text"}}
           items={source.suggestions()}
           getItemValue={(item) => item}
-          shouldItemRender={source.filterSuggestions}
+          shouldItemRender={source.shouldRenderSuggestion}
           sortItems={source.compareSuggestions}
           onChange={(event, value) => this.setValue(value)}
           onSelect={value => this.setValue(value)}
@@ -91,13 +92,13 @@ class Word extends React.Component {
       <div className="medium-6 columns">
         <div className="row">
           <div className="part-of-speech medium-3 columns">
-            <PartOfSpeech word={word} wordKey={wordKey}/>
+            <PartOfSpeech word={word} wordKey={wordKey} suggestionSource={docText.suggestions.partOfSpeech}/>
           </div>
           <div className="dictionary-form dict medium-4 columns">
-            <DictionaryForm word={word} wordKey={wordKey}/>
+            <DictionaryForm word={word} wordKey={wordKey} suggestionSource={docText.suggestions.dictionaryForm}/>
           </div>
           <div className="here-form medium-5 columns">
-            <HereForm word={word} wordKey={wordKey}/>
+            <HereForm word={word} wordKey={wordKey} suggestionSource={docText.suggestions.hereForm}/>
           </div>
         </div>
         <div className="row">
@@ -105,7 +106,7 @@ class Word extends React.Component {
         </div>
       </div>
       <div className="here-meaning double-row medium-3 columns">
-        <HereMeaning word={word} wordKey={wordKey}/>
+        <HereMeaning word={word} wordKey={wordKey} suggestionSource={docText.suggestions.hereMeaning}/>
       </div>
     </div>;
   }
