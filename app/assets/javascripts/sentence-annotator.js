@@ -19,7 +19,7 @@ class AnnoInput extends React.Component {
     autoSave.updateWord(this.props.wordKey, update);
   }
   render() {
-    let source = this.props.suggestionSource || new SuggestionSource();
+    let source = this.props.suggestionSource;
     return (
         <Autocomplete
           value={this.state.value}
@@ -39,6 +39,11 @@ class AnnoInput extends React.Component {
         />
     );
   }
+}
+AnnoInput.propTypes = {
+  word: React.PropTypes.object.isRequired,
+  wordKey: React.PropTypes.string.isRequired,
+  suggestionSource: React.PropTypes.object.isRequired,
 }
 
 class PartOfSpeech extends AnnoInput {
