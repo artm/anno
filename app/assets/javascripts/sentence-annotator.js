@@ -88,10 +88,13 @@ class Word extends React.Component {
   constructor(props) {
     props.word.anno = props.word.anno || {};
     super(props);
+    this.state = {
+      word: props.word
+    };
   }
 
   render() {
-    var word = this.props.word;
+    var word = this.state.word;
     var wordKey = this.props.wordKey;
 
     return <div className="word-annotator row">
