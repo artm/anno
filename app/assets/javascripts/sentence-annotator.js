@@ -20,14 +20,16 @@ class AnnoInput extends React.Component {
   }
   render() {
     let source = this.props.suggestionSource;
+    let context = this.props.word;
     return (
         <Autocomplete
           value={this.state.value}
           inputProps={{placeholder: this.placeholder(), type: "text"}}
-          items={source.suggestions()}
+          items={source.suggestions(context)}
           getItemValue={(item) => item}
-          shouldItemRender={source.shouldRenderSuggestion}
-          sortItems={source.compareSuggestions}
+          shouldItemRender={(suggestion, currentInput) =>
+            source.shouldRenderSuggestion(suggestion, currentInput, context)}
+          sortItems={(a,b,currentInput) => source.compareSuggestions(a,b,currentInput, context)}
           onChange={(event, value) => this.setValue(value)}
           onSelect={value => this.setValue(value)}
           renderItem={(item, isHighlighted) => (
