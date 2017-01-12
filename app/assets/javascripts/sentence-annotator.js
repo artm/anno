@@ -49,7 +49,7 @@ class Word extends React.Component {
   }
   updateAnno(key, value) {
     let anno = { anno: {[key]: value} };
-    let word = $.extend(true, {}, this.state.word, {anno});
+    let word = $.extend(true, {}, this.state.word, anno);
     this.setState({word});
     autoSave.updateWord(this.props.wordKey, anno);
   }
