@@ -9,14 +9,13 @@ class AnnoInput extends React.Component {
     super(props);
     this.anno = props.word.anno;
     this.state = {value: this.anno[this.annoKey()] || ""};
-    this.setValue = this.setValue.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
-  setValue(value) {
+  handleChange(value) {
     this.setState({value: value});
-    this.anno[this.annoKey()] = value;
-    let update = {anno: {}};
-    update["anno"][this.annoKey()] = value;
-    autoSave.updateWord(this.props.wordKey, update);
+    if (this.props.onChange) {
+      this.props.onChange(value);
+    }
   }
   render() {
     let source = this.props.suggestionSource;
@@ -30,8 +29,8 @@ class AnnoInput extends React.Component {
           shouldItemRender={(suggestion, currentInput) =>
             source.shouldRenderSuggestion(suggestion, currentInput, context)}
           sortItems={(a,b,currentInput) => source.compareSuggestions(a,b,currentInput, context)}
-          onChange={(event, value) => this.setValue(value)}
-          onSelect={value => this.setValue(value)}
+          onChange={(event, value) => this.handleChange(value)}
+          onSelect={value => this.handleChange(value)}
           renderItem={(item, isHighlighted) => (
             <div
               style={isHighlighted ? {background: "#ffff99"} : {}}
@@ -46,6 +45,7 @@ AnnoInput.propTypes = {
   word: React.PropTypes.object.isRequired,
   wordKey: React.PropTypes.string.isRequired,
   suggestionSource: React.PropTypes.object.isRequired,
+  onChange: React.PropTypes.func,
 }
 
 class PartOfSpeech extends AnnoInput {
@@ -88,11 +88,15 @@ class Word extends React.Component {
   constructor(props) {
     props.word.anno = props.word.anno || {};
     super(props);
-    this.state = {
-      word: props.word
-    };
+    this.state = { word: props.word };
+    this.updateAnno = this.updateAnno.bind(this);
   }
-
+  updateAnno(key, value) {
+    let anno = { anno: {[key]: value} };
+    let word = $.extend(true, {}, this.state.word, {anno});
+    this.setState({word});
+    autoSave.updateWord(this.props.wordKey, anno);
+  }
   render() {
     var word = this.state.word;
     var wordKey = this.props.wordKey;
@@ -106,6 +110,7 @@ class Word extends React.Component {
               word={word}
               wordKey={wordKey}
               suggestionSource={docText.suggestions.partOfSpeech}
+              onChange={(value) => {this.updateAnno("part_of_speech", value)}}
             />
           </div>
           <div className="dictionary-form dict medium-4 columns">
@@ -113,6 +118,7 @@ class Word extends React.Component {
               word={word}
               wordKey={wordKey}
               suggestionSource={docText.suggestions.dictionaryForm}
+              onChange={(value) => {this.updateAnno("dictionary_form", value)}}
             />
           </div>
           <div className="here-form medium-5 columns">
@@ -120,6 +126,7 @@ class Word extends React.Component {
               word={word}
               wordKey={wordKey}
               suggestionSource={docText.suggestions.hereForm}
+              onChange={(value) => {this.updateAnno("here_form", value)}}
             />
           </div>
         </div>
@@ -132,6 +139,7 @@ class Word extends React.Component {
           word={word}
           wordKey={wordKey}
           suggestionSource={docText.suggestions.hereMeaning}
+          onChange={(value) => {this.updateAnno("here_meaning", value)}}
         />
       </div>
     </div>;
