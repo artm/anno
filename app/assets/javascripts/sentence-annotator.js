@@ -99,13 +99,25 @@ class Word extends React.Component {
       <div className="medium-6 columns">
         <div className="row">
           <div className="part-of-speech medium-3 columns">
-            <PartOfSpeech word={word} wordKey={wordKey} suggestionSource={docText.suggestions.partOfSpeech}/>
+            <PartOfSpeech
+              word={word}
+              wordKey={wordKey}
+              suggestionSource={docText.suggestions.partOfSpeech}
+            />
           </div>
           <div className="dictionary-form dict medium-4 columns">
-            <DictionaryForm word={word} wordKey={wordKey} suggestionSource={docText.suggestions.dictionaryForm}/>
+            <DictionaryForm
+              word={word}
+              wordKey={wordKey}
+              suggestionSource={docText.suggestions.dictionaryForm}
+            />
           </div>
           <div className="here-form medium-5 columns">
-            <HereForm word={word} wordKey={wordKey} suggestionSource={docText.suggestions.hereForm}/>
+            <HereForm
+              word={word}
+              wordKey={wordKey}
+              suggestionSource={docText.suggestions.hereForm}
+            />
           </div>
         </div>
         <div className="row">
@@ -113,7 +125,11 @@ class Word extends React.Component {
         </div>
       </div>
       <div className="here-meaning double-row medium-3 columns">
-        <HereMeaning word={word} wordKey={wordKey} suggestionSource={docText.suggestions.hereMeaning}/>
+        <HereMeaning
+          word={word}
+          wordKey={wordKey}
+          suggestionSource={docText.suggestions.hereMeaning}
+        />
       </div>
     </div>;
   }
